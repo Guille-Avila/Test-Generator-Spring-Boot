@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.me.testgenerator.domain.Student;
 import com.me.testgenerator.domain.Test;
-import com.me.testgenerator.service.IStudentService;
+import com.me.testgenerator.service.StudentService;
 
 import java.util.List;
 
@@ -16,7 +16,9 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private IStudentService studentService;
+    private StudentService studentService;
+
+    // Basic CRUD
 
     @GetMapping("")
     public ResponseEntity<List<Student>> getAllStudents() {
@@ -34,19 +36,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/test/{id}")
-    public ResponseEntity<List<Test>> getStudentTestById(@PathVariable Long id) {
-        Student student = studentService.getStudentById(id);
-        List<Test> studentTests = student.getTests();
-        if (studentTests != null) {
-            return new ResponseEntity<>(studentTests, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    
-    }
-
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         Student createdStudent = studentService.createStudent(student);
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
@@ -67,6 +57,18 @@ public class StudentController {
         boolean deleted = studentService.deleteStudent(id);
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Special queries
+
+    @GetMapping("/test/{id}")
+    public ResponseEntity<List<Test>> getStudentTestById(@PathVariable Long id) {
+        List<Test> tests = studentService.getTestsByStudentId(id);
+        if (tests != null) {
+            return new ResponseEntity<>(tests, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

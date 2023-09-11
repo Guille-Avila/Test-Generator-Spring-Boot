@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hola")
+@RequestMapping("")
 public class HelloController {
 
     @GetMapping("")
     public ResponseEntity<String> helloWorld() {
-        String message = "Hola Mundo";
+        String message = "Bienvenido al proyecto de generacion de Pruebas, puedes usar students, tests, questions, para empezar a crer tus preguntas y pruebas";
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
