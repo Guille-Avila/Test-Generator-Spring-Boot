@@ -64,7 +64,7 @@ public class StudentController {
 
     // Special queries
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/tests/{id}")
     public ResponseEntity<List<Test>> getStudentTestById(@PathVariable Long id) {
         List<Test> tests = studentService.getTestsByStudentId(id);
         if (tests != null) {

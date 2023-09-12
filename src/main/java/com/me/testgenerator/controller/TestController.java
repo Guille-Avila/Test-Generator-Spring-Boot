@@ -28,8 +28,13 @@ public class TestController {
 
     @GetMapping("")
     public ResponseEntity<List<Test>> getAllTests() {
+        try {
         List<Test> tests = testService.getAllTests();
         return new ResponseEntity<>(tests, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")

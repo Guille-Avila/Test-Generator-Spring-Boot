@@ -33,9 +33,16 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public Student updateStudent(Long id, Student student) {
-        if (studentRepository.existsById(id)) {
-            student.setId(id);
+    public Student updateStudent(Long id, Student newStudent) {
+
+        Optional<Student> studentOptional = studentRepository.findById(id);
+
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+
+            student.setName(newStudent.getName());
+            student.setEmail(newStudent.getEmail());
+
             return studentRepository.save(student);
         } else {
             return null;
