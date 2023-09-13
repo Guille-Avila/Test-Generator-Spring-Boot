@@ -3,8 +3,6 @@ package com.me.testgenerator.domain;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "assigned_test")

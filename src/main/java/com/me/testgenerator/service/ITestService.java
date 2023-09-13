@@ -2,6 +2,7 @@ package com.me.testgenerator.service;
 
 import java.util.List;
 
+import com.me.testgenerator.DTO.TestDTO;
 import com.me.testgenerator.domain.Test;
 
 public interface ITestService {

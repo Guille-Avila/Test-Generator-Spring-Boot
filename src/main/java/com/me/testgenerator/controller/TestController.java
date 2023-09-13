@@ -1,6 +1,7 @@
 package com.me.testgenerator.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,11 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 // import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.me.testgenerator.DTO.TestDTO;
+import com.me.testgenerator.domain.Question;
 import com.me.testgenerator.domain.Test;
 import com.me.testgenerator.service.TestService;
 
@@ -53,15 +57,15 @@ public class TestController {
         return new ResponseEntity<>(createdTest, HttpStatus.CREATED);
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Test> updateTest(@PathVariable Long id, @RequestBody Test test) {
-    //     Test updatedTest = testService.updateTest(id, test);
-    //     if (updatedTest != null) {
-    //         return new ResponseEntity<>(updatedTest, HttpStatus.OK);
-    //     } else {
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
+    @PutMapping("/{id}")
+    public ResponseEntity<Test> updateTest(@PathVariable Long id, @RequestBody Test test) {
+        Test updatedTest = testService.updateTest(id, test);
+        if (updatedTest != null) {
+            return new ResponseEntity<>(updatedTest, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTest(@PathVariable Long id) {
@@ -73,4 +77,13 @@ public class TestController {
         }
     }
     
+    @GetMapping("questions/{id}")
+    public ResponseEntity<Set<Question>> getQuestions(@PathVariable Long id) {
+        Set<Question> questions = testService.getQuestions(id);
+        if (questions != null) {
+            return new ResponseEntity<>(questions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

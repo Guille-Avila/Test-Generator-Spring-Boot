@@ -28,9 +28,14 @@ public class Test {
 
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore 
-    private List<AssignedTest> tests;
+    private List<AssignedTest> assignedTests;
 
-    @ManyToMany(mappedBy = "tests")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "test_questions",
+        joinColumns = @JoinColumn(name = "id_test"),
+        inverseJoinColumns = @JoinColumn(name = "id_question")
+    )
     private Set<Question> questions = new HashSet<>();
 }
 
