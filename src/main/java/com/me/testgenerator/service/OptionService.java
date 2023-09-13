@@ -1,6 +1,7 @@
 package com.me.testgenerator.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,15 @@ public class OptionService implements IOptionService{
     }
 
     @Override
-    public Option updateOption(Long id, Option option) {
-        if (optionRepository.existsById(id)) {
-            option.setId(id);
+    public Option updateOption(Long id, Option newOption) {
+        Optional<Option> optionOptional = optionRepository.findById(id);
+
+        if (optionOptional.isPresent()) {
+            Option option = optionOptional.get();
+
+            option.setText(newOption.getText());
+            option.setQuestion(newOption.getQuestion());
+
             return optionRepository.save(option);
         } else {
             return null;

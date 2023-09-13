@@ -1,6 +1,7 @@
 package com.me.testgenerator.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,14 @@ public class QuestionService implements IQuestionService{
     }
 
     @Override
-    public Question updateQuestion(Long id, Question question) {
-        if (questionRepository.existsById(id)) {
-            question.setId(id);
+    public Question updateQuestion(Long id, Question newQuestion) {
+        Optional<Question> questionOptional = questionRepository.findById(id);
+
+        if (questionOptional.isPresent()) {
+            Question question = questionOptional.get();
+
+            question.setText(newQuestion.getText());
+
             return questionRepository.save(question);
         } else {
             return null;

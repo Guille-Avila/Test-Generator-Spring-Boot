@@ -16,7 +16,7 @@ public class Answer {
     private Long id;
 
     @Column(name = "text")
-    private String name;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "id_question", referencedColumnName = "id")

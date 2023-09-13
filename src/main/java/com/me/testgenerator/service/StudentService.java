@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.me.testgenerator.domain.AssignedTest;
 import com.me.testgenerator.domain.Student;
-import com.me.testgenerator.domain.Test;
 import com.me.testgenerator.repository.StudentRepository;
 
 @Service
@@ -60,7 +60,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public List<Test> getTestsByStudentId(Long id) {
+    public List<AssignedTest> getTestsByStudentId(Long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
     if (studentOptional.isPresent()) {
         Student student = studentOptional.get();

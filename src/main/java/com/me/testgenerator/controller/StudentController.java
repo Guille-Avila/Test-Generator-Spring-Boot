@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.me.testgenerator.domain.AssignedTest;
 import com.me.testgenerator.domain.Student;
-import com.me.testgenerator.domain.Test;
 import com.me.testgenerator.service.StudentService;
 
 import java.util.List;
@@ -65,8 +65,8 @@ public class StudentController {
     // Special queries
 
     @GetMapping("/tests/{id}")
-    public ResponseEntity<List<Test>> getStudentTestById(@PathVariable Long id) {
-        List<Test> tests = studentService.getTestsByStudentId(id);
+    public ResponseEntity<List<AssignedTest>> getStudentTestById(@PathVariable Long id) {
+        List<AssignedTest> tests = studentService.getTestsByStudentId(id);
         if (tests != null) {
             return new ResponseEntity<>(tests, HttpStatus.OK);
         } else {

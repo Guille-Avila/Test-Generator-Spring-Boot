@@ -2,9 +2,11 @@ package com.me.testgenerator.domain;
 
 import lombok.*;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "test")
@@ -18,18 +20,15 @@ public class Test {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "start_date")
-    private LocalDateTime startDate;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "end_date")
-    private LocalDateTime endDate;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "score")
-    private float score;
-
-    @ManyToOne
-    @JoinColumn(name = "id_student", referencedColumnName = "id")
-    private Student student;
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore 
+    private List<AssignedTest> tests;
 
     @ManyToMany(mappedBy = "tests")
     private Set<Question> questions = new HashSet<>();

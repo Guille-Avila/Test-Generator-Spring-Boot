@@ -1,6 +1,7 @@
 package com.me.testgenerator.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,18 @@ public class AnswerService implements IAnswerService{
     }
 
     @Override
-    public Answer updateAnswer(Long id, Answer answer) {
-        if (answerRepository.existsById(id)) {
-            answer.setId(id);
+    public Answer updateAnswer(Long id, Answer newAnswer) {
+        Optional<Answer> answerOptional = answerRepository.findById(id);
+
+        if (answerOptional.isPresent()) {
+            Answer answer = answerOptional.get();
+
+            answer.setText(newAnswer.getText());
+            answer.setQuestion(newAnswer.getQuestion());
+            
             return answerRepository.save(answer);
-        } else {
+        }
+        else {
             return null;
         }
     }
