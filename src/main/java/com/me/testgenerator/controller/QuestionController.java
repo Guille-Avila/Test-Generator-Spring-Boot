@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.me.testgenerator.DTO.QuestionDTO;
 import com.me.testgenerator.domain.Question;
 import com.me.testgenerator.service.QuestionService;
 
@@ -43,7 +44,7 @@ public class QuestionController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
+    public ResponseEntity<Question> createQuestion(@RequestBody QuestionDTO question) {
         Question createdQuestion = questionService.createQuestion(question);
         return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
     }

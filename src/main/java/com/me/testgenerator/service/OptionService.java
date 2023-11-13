@@ -11,27 +11,23 @@ import com.me.testgenerator.repository.OptionRepository;
 
 
 @Service
-public class OptionService implements IOptionService{
+public class OptionService {
 
     @Autowired
     private OptionRepository optionRepository;
 
-    @Override
     public List<Option> getAllOptions() {
         return optionRepository.findAll();
     }
 
-    @Override
     public Option getOptionById(Long id) {
         return optionRepository.findById(id).orElse(null);
     }
 
-    @Override
     public Option createOption(Option option) {
         return optionRepository.save(option);
     }
 
-    @Override
     public Option updateOption(Long id, Option newOption) {
         Optional<Option> optionOptional = optionRepository.findById(id);
 
@@ -39,7 +35,6 @@ public class OptionService implements IOptionService{
             Option option = optionOptional.get();
 
             option.setText(newOption.getText());
-            option.setQuestion(newOption.getQuestion());
 
             return optionRepository.save(option);
         } else {
@@ -47,7 +42,6 @@ public class OptionService implements IOptionService{
         }
     }
 
-    @Override
     public boolean deleteOption(Long id) {
         if (optionRepository.existsById(id)) {
             optionRepository.deleteById(id);

@@ -2,9 +2,7 @@ package com.me.testgenerator.domain;
 
 import lombok.*;
 import jakarta.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,12 +28,8 @@ public class Test {
     @JsonIgnore 
     private List<AssignedTest> assignedTests;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "test_questions",
-        joinColumns = @JoinColumn(name = "id_test"),
-        inverseJoinColumns = @JoinColumn(name = "id_question")
-    )
-    private Set<Question> questions = new HashSet<>();
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestQuestions> testQuestions;
+
 }
 

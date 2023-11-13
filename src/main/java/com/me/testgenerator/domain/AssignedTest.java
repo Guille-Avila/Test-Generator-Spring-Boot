@@ -4,6 +4,8 @@ import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "assigned_test")
 @Data
@@ -27,9 +29,11 @@ public class AssignedTest {
 
     @ManyToOne
     @JoinColumn(name = "id_student", referencedColumnName = "id")
+    @JsonIgnore 
     private Student student;
 
     @ManyToOne
     @JoinColumn(name = "id_test", referencedColumnName = "id")
     private Test test;
+
 }

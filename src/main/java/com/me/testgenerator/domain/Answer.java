@@ -1,5 +1,9 @@
 package com.me.testgenerator.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +22,13 @@ public class Answer {
     @Column(name = "text")
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "id_question", referencedColumnName = "id")
-    private Question question;
+    // @ManyToOne
+    // @JoinColumn(name = "id_question", referencedColumnName = "id")
+    // @JsonIgnore
+    // private Question question;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<QuestionAnswers> questions;
     
 }

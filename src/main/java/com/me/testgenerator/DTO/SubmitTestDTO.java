@@ -7,8 +7,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestDTO {
-    private String name;
-    private String description;
-    private List<Question> questions;
+public class SubmitTestDTO {
+    private String chosenOption;
+    
 }

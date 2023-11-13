@@ -1,6 +1,11 @@
 package com.me.testgenerator.domain;
 
 import lombok.*;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,8 +23,13 @@ public class Option {
     @Column(name = "text")
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "id_question", referencedColumnName = "id")
-    private Question question;
+    // @ManyToOne
+    // @JoinColumn(name = "id_question", referencedColumnName = "id")
+    // @JsonIgnore
+    // private Question question;
+
+    @OneToMany(mappedBy = "option", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<QuestionOptions> questions;
     
 }

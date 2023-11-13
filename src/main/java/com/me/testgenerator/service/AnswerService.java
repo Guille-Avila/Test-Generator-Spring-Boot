@@ -10,27 +10,24 @@ import com.me.testgenerator.domain.Answer;
 import com.me.testgenerator.repository.AnswerRepository;
 
 @Service
-public class AnswerService implements IAnswerService{
+public class AnswerService {
 
     @Autowired
     private AnswerRepository answerRepository;
-
-    @Override
+ 
     public List<Answer> getAllAnswers() {
         return answerRepository.findAll();
     }
 
-    @Override
     public Answer getAnswerById(Long id) {
         return answerRepository.findById(id).orElse(null);
     }
 
-    @Override
     public Answer createAnswer(Answer answer) {
         return answerRepository.save(answer);
     }
 
-    @Override
+
     public Answer updateAnswer(Long id, Answer newAnswer) {
         Optional<Answer> answerOptional = answerRepository.findById(id);
 
@@ -38,7 +35,6 @@ public class AnswerService implements IAnswerService{
             Answer answer = answerOptional.get();
 
             answer.setText(newAnswer.getText());
-            answer.setQuestion(newAnswer.getQuestion());
             
             return answerRepository.save(answer);
         }
@@ -47,7 +43,6 @@ public class AnswerService implements IAnswerService{
         }
     }
 
-    @Override
     public boolean deleteAnswer(Long id) {
         if (answerRepository.existsById(id)) {
             answerRepository.deleteById(id);
